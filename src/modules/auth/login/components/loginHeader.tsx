@@ -13,7 +13,7 @@ const LoginHeader = ({
     >
     <img 
     src="https://i.pinimg.com/736x/58/bd/4f/58bd4fc9ebfccc1f2de419529bbf1a12.jpg"
-    className="object-cover w-full max-h-fit"
+    className="object-cover w-full h-full"
     />
 
     </div>

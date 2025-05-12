@@ -34,7 +34,7 @@ const LoginForm = (
     }
   })
   return (
-    <div className={cn('flex flex-col gap-y-3 justify-center lg:h-full lg:justify-around mt-3 items-center',className)}>
+    <div className={cn('flex flex-col gap-y-3 justify-center lg:h-full lg:justify-around mt-3 items-center pb-4',className)}>
        
        {/* Login Header */}
        <div className='flex flex-col w-full justify-center items-center gap-y-1'>

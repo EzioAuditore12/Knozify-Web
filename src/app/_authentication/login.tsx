@@ -39,13 +39,13 @@ function RouteComponent() {
   {/*TODO Need to fix this login page responsiveness accross all deviices */}
   return (
     
-     <div className='max-h-dvh p-3 dark:bg-gray-900 flex flex-col gap-y-2 lg:flex-row lg:gap-x-2 '>
+     <div className='max-h-dvh p-3 dark:bg-gray-900 flex flex-col gap-y-4 grow-1 lg:flex-row lg:gap-x-2'>
       {/*TODO Need to fix this taking extra space in lg screens */}
       <LoginHeader
-      className='h-[30%] lg:max-h-svh lg:w-[50%] rounded-2xl min-h-[200px]'
+      className='w-full h-[40%] lg:w-[50%] lg:h-dvh rounded-2xl min-h-[200px]'
       />
       <LoginForm
-      className='h-[70%] lg:h-full my-auto lg:w-[50%] dark:bg-gray-900'
+      className='h-[60%] lg:h-dvh'
       onSubmit={handleSubmit}
       error={error}
       />
