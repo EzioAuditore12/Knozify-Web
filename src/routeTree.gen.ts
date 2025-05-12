@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './app/__root'
 import { Route as AppImport } from './app/_app'
+import { Route as AuthenticationLoginImport } from './app/_authentication/login'
 import { Route as AppSearchIndexImport } from './app/_app/search/index'
 import { Route as AppReelsIndexImport } from './app/_app/reels/index'
 import { Route as AppProfileIndexImport } from './app/_app/profile/index'
@@ -21,6 +22,12 @@ import { Route as ApphomeIndexImport } from './app/_app/(home)/index'
 
 const AppRoute = AppImport.update({
   id: '/_app',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthenticationLoginRoute = AuthenticationLoginImport.update({
+  id: '/_authentication/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -57,6 +64,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AppImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authentication/login': {
+      id: '/_authentication/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthenticationLoginImport
       parentRoute: typeof rootRoute
     }
     '/_app/(home)/': {
@@ -110,6 +124,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 export interface FileRoutesByFullPath {
   '': typeof AppRouteWithChildren
+  '/login': typeof AuthenticationLoginRoute
   '/': typeof ApphomeIndexRoute
   '/profile': typeof AppProfileIndexRoute
   '/reels': typeof AppReelsIndexRoute
@@ -117,6 +132,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/login': typeof AuthenticationLoginRoute
   '/': typeof ApphomeIndexRoute
   '/profile': typeof AppProfileIndexRoute
   '/reels': typeof AppReelsIndexRoute
@@ -126,6 +142,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_app': typeof AppRouteWithChildren
+  '/_authentication/login': typeof AuthenticationLoginRoute
   '/_app/(home)/': typeof ApphomeIndexRoute
   '/_app/profile/': typeof AppProfileIndexRoute
   '/_app/reels/': typeof AppReelsIndexRoute
@@ -134,12 +151,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/profile' | '/reels' | '/search'
+  fullPaths: '' | '/login' | '/' | '/profile' | '/reels' | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/profile' | '/reels' | '/search'
+  to: '/login' | '/' | '/profile' | '/reels' | '/search'
   id:
     | '__root__'
     | '/_app'
+    | '/_authentication/login'
     | '/_app/(home)/'
     | '/_app/profile/'
     | '/_app/reels/'
@@ -149,10 +167,12 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
+  AuthenticationLoginRoute: typeof AuthenticationLoginRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
+  AuthenticationLoginRoute: AuthenticationLoginRoute,
 }
 
 export const routeTree = rootRoute
@@ -165,7 +185,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_app"
+        "/_app",
+        "/_authentication/login"
       ]
     },
     "/_app": {
@@ -176,6 +197,9 @@ export const routeTree = rootRoute
         "/_app/reels/",
         "/_app/search/"
       ]
+    },
+    "/_authentication/login": {
+      "filePath": "_authentication/login.tsx"
     },
     "/_app/(home)/": {
       "filePath": "_app/(home)/index.tsx",
