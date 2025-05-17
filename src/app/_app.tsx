@@ -1,6 +1,8 @@
 import { createFileRoute,Link, Outlet,redirect} from '@tanstack/react-router'
 import { authStore } from '@/store'
-
+import { MenuBarDesktop } from '@/components/layout/MenuBar/MenuBar.desktop'
+import { useIsMobile } from '@/hooks/use-mobile'
+import { MenuBarMobile } from '@/components/layout/MenuBar/MenuBar.mobile'
 export const Route = createFileRoute('/_app')({
   beforeLoad:()=>{
         const user=authStore.getState().user
@@ -14,41 +16,18 @@ export const Route = createFileRoute('/_app')({
 })
 
 function AppLayout() {
+    const mobileBreakpoint=useIsMobile()
     return (
-      <div>
-        <header className="bg-gray-800 text-white p-4">My App Header</header>
-        <nav className="bg-gray-200 p-2">Sidebar or Navigation</nav>
-  
-        <main className="p-4 flex flex-col">
-          <div>
-            <ul className='flex flex-row gap-x-4 border-2 border-black self-start'>
-              <li>
-                <Link to="/" className='[&.active]:text-green-500 [&.active]:font-bold'>
-                Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/search" className='[&.active]:text-green-500 [&.active]:font-bold'>
-                Search
-                </Link>
-              </li>
-              <li>
-                <Link to="/reels" className='[&.active]:text-green-500 [&.active]:font-bold'>
-                Reel
-                </Link>
-              </li>
-              <li>
-              <Link to="/profile" className='[&.active]:text-green-500 [&.active]:font-bold'>
-               Profile
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <Outlet />
-        </main>
+      <div className='flex'>
+        {mobileBreakpoint ? <MenuBarMobile/> : <MenuBarDesktop/>}
+        <div className='flex-1 min-h-screen'>
+         <Outlet />
+         </div>
       </div>
     )
   }
+  
+  
   
   
 

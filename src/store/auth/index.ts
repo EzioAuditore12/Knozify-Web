@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { regenerateTokens, tokenExpiration } from "@/services/auth";
 
-const authStore = create<authStoreType, [["zustand/persist", unknown]]>(
+export const authStore = create<authStoreType, [["zustand/persist", unknown]]>(
     persist(
         (set,get) => ({
             authTokens: null,
@@ -49,4 +49,3 @@ const authStore = create<authStoreType, [["zustand/persist", unknown]]>(
     )
 )
 
-export {authStore}

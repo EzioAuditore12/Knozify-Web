@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @font-face {
   font-family: 'MerriWeather';
   src: url('/fonts/Merriweather-Regular.ttf') format('truetype');

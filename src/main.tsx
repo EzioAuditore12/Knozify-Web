@@ -5,6 +5,9 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 // Tailwind Imports
 import './index.css'
 
+//Theme Mode
+import { useThemeInit } from './hooks/themeMode'
+
 // Progressh Bar
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -36,13 +39,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+//Theme wrapper
+function App(){
+  useThemeInit()
+
+  return <RouterProvider router={router} />
+}
+
 // Render the app
 const rootElement = document.getElementById('root')!
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <App/>
     </StrictMode>,
   )
 }
