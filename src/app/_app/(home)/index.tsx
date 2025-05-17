@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect } from 'react'
 import { Button, Text } from '@/components/ui'
 import { themeStore } from '@/store/theme'
 import { FiSun, FiMoon } from 'react-icons/fi'

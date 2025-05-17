@@ -1,4 +1,4 @@
-import { createFileRoute,Link, Outlet,redirect} from '@tanstack/react-router'
+import { createFileRoute,Outlet,redirect} from '@tanstack/react-router'
 import { authStore } from '@/store'
 import { MenuBarDesktop } from '@/components/layout/MenuBar/MenuBar.desktop'
 import { useIsMobile } from '@/hooks/use-mobile'
