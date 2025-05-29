@@ -3,7 +3,7 @@ import {cva, type VariantProps} from 'class-variance-authority'
 import { forwardRef, InputHTMLAttributes } from "react";
 
 const inputVariants=cva(
-    "border-2 p-2 px-4 focus:border-blue-500 outline-none",
+    "border-2 p-2 px-4 focus:border-blue-500 outline-none w-full",
     {
         variants:{
             intent:{

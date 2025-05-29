@@ -8,27 +8,53 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './app/__root'
+import { Route as AuthenticationImport } from './app/_authentication'
 import { Route as AppImport } from './app/_app'
 import { Route as AuthenticationLoginImport } from './app/_authentication/login'
 import { Route as AppSearchIndexImport } from './app/_app/search/index'
 import { Route as AppReelsIndexImport } from './app/_app/reels/index'
 import { Route as AppProfileIndexImport } from './app/_app/profile/index'
 import { Route as ApphomeIndexImport } from './app/_app/(home)/index'
+import { Route as AuthenticationRegisterStepsImport } from './app/_authentication/register/_steps'
+import { Route as AuthenticationRegisterStepsIndexImport } from './app/_authentication/register/_steps/index'
+import { Route as AuthenticationRegisterStepsStep5Import } from './app/_authentication/register/_steps/step5'
+import { Route as AuthenticationRegisterStepsStep4Import } from './app/_authentication/register/_steps/step4'
+import { Route as AuthenticationRegisterStepsStep3Import } from './app/_authentication/register/_steps/step3'
+import { Route as AuthenticationRegisterStepsStep2Import } from './app/_authentication/register/_steps/step2'
+
+// Create Virtual Routes
+
+const AuthenticationRegisterImport = createFileRoute(
+  '/_authentication/register',
+)()
 
 // Create/Update Routes
+
+const AuthenticationRoute = AuthenticationImport.update({
+  id: '/_authentication',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AppRoute = AppImport.update({
   id: '/_app',
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthenticationRegisterRoute = AuthenticationRegisterImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthenticationRoute,
+} as any)
+
 const AuthenticationLoginRoute = AuthenticationLoginImport.update({
-  id: '/_authentication/login',
+  id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthenticationRoute,
 } as any)
 
 const AppSearchIndexRoute = AppSearchIndexImport.update({
@@ -55,6 +81,47 @@ const ApphomeIndexRoute = ApphomeIndexImport.update({
   getParentRoute: () => AppRoute,
 } as any)
 
+const AuthenticationRegisterStepsRoute =
+  AuthenticationRegisterStepsImport.update({
+    id: '/_steps',
+    getParentRoute: () => AuthenticationRegisterRoute,
+  } as any)
+
+const AuthenticationRegisterStepsIndexRoute =
+  AuthenticationRegisterStepsIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticationRegisterStepsRoute,
+  } as any)
+
+const AuthenticationRegisterStepsStep5Route =
+  AuthenticationRegisterStepsStep5Import.update({
+    id: '/step5',
+    path: '/step5',
+    getParentRoute: () => AuthenticationRegisterStepsRoute,
+  } as any)
+
+const AuthenticationRegisterStepsStep4Route =
+  AuthenticationRegisterStepsStep4Import.update({
+    id: '/step4',
+    path: '/step4',
+    getParentRoute: () => AuthenticationRegisterStepsRoute,
+  } as any)
+
+const AuthenticationRegisterStepsStep3Route =
+  AuthenticationRegisterStepsStep3Import.update({
+    id: '/step3',
+    path: '/step3',
+    getParentRoute: () => AuthenticationRegisterStepsRoute,
+  } as any)
+
+const AuthenticationRegisterStepsStep2Route =
+  AuthenticationRegisterStepsStep2Import.update({
+    id: '/step2',
+    path: '/step2',
+    getParentRoute: () => AuthenticationRegisterStepsRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -66,12 +133,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppImport
       parentRoute: typeof rootRoute
     }
+    '/_authentication': {
+      id: '/_authentication'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticationImport
+      parentRoute: typeof rootRoute
+    }
     '/_authentication/login': {
       id: '/_authentication/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof AuthenticationLoginImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/register': {
+      id: '/_authentication/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthenticationRegisterImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/register/_steps': {
+      id: '/_authentication/register/_steps'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof AuthenticationRegisterStepsImport
+      parentRoute: typeof AuthenticationRegisterRoute
     }
     '/_app/(home)/': {
       id: '/_app/(home)/'
@@ -101,6 +189,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSearchIndexImport
       parentRoute: typeof AppImport
     }
+    '/_authentication/register/_steps/step2': {
+      id: '/_authentication/register/_steps/step2'
+      path: '/step2'
+      fullPath: '/register/step2'
+      preLoaderRoute: typeof AuthenticationRegisterStepsStep2Import
+      parentRoute: typeof AuthenticationRegisterStepsImport
+    }
+    '/_authentication/register/_steps/step3': {
+      id: '/_authentication/register/_steps/step3'
+      path: '/step3'
+      fullPath: '/register/step3'
+      preLoaderRoute: typeof AuthenticationRegisterStepsStep3Import
+      parentRoute: typeof AuthenticationRegisterStepsImport
+    }
+    '/_authentication/register/_steps/step4': {
+      id: '/_authentication/register/_steps/step4'
+      path: '/step4'
+      fullPath: '/register/step4'
+      preLoaderRoute: typeof AuthenticationRegisterStepsStep4Import
+      parentRoute: typeof AuthenticationRegisterStepsImport
+    }
+    '/_authentication/register/_steps/step5': {
+      id: '/_authentication/register/_steps/step5'
+      path: '/step5'
+      fullPath: '/register/step5'
+      preLoaderRoute: typeof AuthenticationRegisterStepsStep5Import
+      parentRoute: typeof AuthenticationRegisterStepsImport
+    }
+    '/_authentication/register/_steps/': {
+      id: '/_authentication/register/_steps/'
+      path: '/'
+      fullPath: '/register/'
+      preLoaderRoute: typeof AuthenticationRegisterStepsIndexImport
+      parentRoute: typeof AuthenticationRegisterStepsImport
+    }
   }
 }
 
@@ -122,57 +245,164 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface AuthenticationRegisterStepsRouteChildren {
+  AuthenticationRegisterStepsStep2Route: typeof AuthenticationRegisterStepsStep2Route
+  AuthenticationRegisterStepsStep3Route: typeof AuthenticationRegisterStepsStep3Route
+  AuthenticationRegisterStepsStep4Route: typeof AuthenticationRegisterStepsStep4Route
+  AuthenticationRegisterStepsStep5Route: typeof AuthenticationRegisterStepsStep5Route
+  AuthenticationRegisterStepsIndexRoute: typeof AuthenticationRegisterStepsIndexRoute
+}
+
+const AuthenticationRegisterStepsRouteChildren: AuthenticationRegisterStepsRouteChildren =
+  {
+    AuthenticationRegisterStepsStep2Route:
+      AuthenticationRegisterStepsStep2Route,
+    AuthenticationRegisterStepsStep3Route:
+      AuthenticationRegisterStepsStep3Route,
+    AuthenticationRegisterStepsStep4Route:
+      AuthenticationRegisterStepsStep4Route,
+    AuthenticationRegisterStepsStep5Route:
+      AuthenticationRegisterStepsStep5Route,
+    AuthenticationRegisterStepsIndexRoute:
+      AuthenticationRegisterStepsIndexRoute,
+  }
+
+const AuthenticationRegisterStepsRouteWithChildren =
+  AuthenticationRegisterStepsRoute._addFileChildren(
+    AuthenticationRegisterStepsRouteChildren,
+  )
+
+interface AuthenticationRegisterRouteChildren {
+  AuthenticationRegisterStepsRoute: typeof AuthenticationRegisterStepsRouteWithChildren
+}
+
+const AuthenticationRegisterRouteChildren: AuthenticationRegisterRouteChildren =
+  {
+    AuthenticationRegisterStepsRoute:
+      AuthenticationRegisterStepsRouteWithChildren,
+  }
+
+const AuthenticationRegisterRouteWithChildren =
+  AuthenticationRegisterRoute._addFileChildren(
+    AuthenticationRegisterRouteChildren,
+  )
+
+interface AuthenticationRouteChildren {
+  AuthenticationLoginRoute: typeof AuthenticationLoginRoute
+  AuthenticationRegisterRoute: typeof AuthenticationRegisterRouteWithChildren
+}
+
+const AuthenticationRouteChildren: AuthenticationRouteChildren = {
+  AuthenticationLoginRoute: AuthenticationLoginRoute,
+  AuthenticationRegisterRoute: AuthenticationRegisterRouteWithChildren,
+}
+
+const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
+  AuthenticationRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '': typeof AppRouteWithChildren
+  '': typeof AuthenticationRouteWithChildren
   '/login': typeof AuthenticationLoginRoute
+  '/register': typeof AuthenticationRegisterStepsRouteWithChildren
   '/': typeof ApphomeIndexRoute
   '/profile': typeof AppProfileIndexRoute
   '/reels': typeof AppReelsIndexRoute
   '/search': typeof AppSearchIndexRoute
+  '/register/step2': typeof AuthenticationRegisterStepsStep2Route
+  '/register/step3': typeof AuthenticationRegisterStepsStep3Route
+  '/register/step4': typeof AuthenticationRegisterStepsStep4Route
+  '/register/step5': typeof AuthenticationRegisterStepsStep5Route
+  '/register/': typeof AuthenticationRegisterStepsIndexRoute
 }
 
 export interface FileRoutesByTo {
+  '': typeof AuthenticationRouteWithChildren
   '/login': typeof AuthenticationLoginRoute
+  '/register': typeof AuthenticationRegisterStepsIndexRoute
   '/': typeof ApphomeIndexRoute
   '/profile': typeof AppProfileIndexRoute
   '/reels': typeof AppReelsIndexRoute
   '/search': typeof AppSearchIndexRoute
+  '/register/step2': typeof AuthenticationRegisterStepsStep2Route
+  '/register/step3': typeof AuthenticationRegisterStepsStep3Route
+  '/register/step4': typeof AuthenticationRegisterStepsStep4Route
+  '/register/step5': typeof AuthenticationRegisterStepsStep5Route
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_app': typeof AppRouteWithChildren
+  '/_authentication': typeof AuthenticationRouteWithChildren
   '/_authentication/login': typeof AuthenticationLoginRoute
+  '/_authentication/register': typeof AuthenticationRegisterRouteWithChildren
+  '/_authentication/register/_steps': typeof AuthenticationRegisterStepsRouteWithChildren
   '/_app/(home)/': typeof ApphomeIndexRoute
   '/_app/profile/': typeof AppProfileIndexRoute
   '/_app/reels/': typeof AppReelsIndexRoute
   '/_app/search/': typeof AppSearchIndexRoute
+  '/_authentication/register/_steps/step2': typeof AuthenticationRegisterStepsStep2Route
+  '/_authentication/register/_steps/step3': typeof AuthenticationRegisterStepsStep3Route
+  '/_authentication/register/_steps/step4': typeof AuthenticationRegisterStepsStep4Route
+  '/_authentication/register/_steps/step5': typeof AuthenticationRegisterStepsStep5Route
+  '/_authentication/register/_steps/': typeof AuthenticationRegisterStepsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/' | '/profile' | '/reels' | '/search'
+  fullPaths:
+    | ''
+    | '/login'
+    | '/register'
+    | '/'
+    | '/profile'
+    | '/reels'
+    | '/search'
+    | '/register/step2'
+    | '/register/step3'
+    | '/register/step4'
+    | '/register/step5'
+    | '/register/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/' | '/profile' | '/reels' | '/search'
+  to:
+    | ''
+    | '/login'
+    | '/register'
+    | '/'
+    | '/profile'
+    | '/reels'
+    | '/search'
+    | '/register/step2'
+    | '/register/step3'
+    | '/register/step4'
+    | '/register/step5'
   id:
     | '__root__'
     | '/_app'
+    | '/_authentication'
     | '/_authentication/login'
+    | '/_authentication/register'
+    | '/_authentication/register/_steps'
     | '/_app/(home)/'
     | '/_app/profile/'
     | '/_app/reels/'
     | '/_app/search/'
+    | '/_authentication/register/_steps/step2'
+    | '/_authentication/register/_steps/step3'
+    | '/_authentication/register/_steps/step4'
+    | '/_authentication/register/_steps/step5'
+    | '/_authentication/register/_steps/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
-  AuthenticationLoginRoute: typeof AuthenticationLoginRoute
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
-  AuthenticationLoginRoute: AuthenticationLoginRoute,
+  AuthenticationRoute: AuthenticationRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -186,7 +416,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/_authentication/login"
+        "/_authentication"
       ]
     },
     "/_app": {
@@ -198,8 +428,34 @@ export const routeTree = rootRoute
         "/_app/search/"
       ]
     },
+    "/_authentication": {
+      "filePath": "_authentication.tsx",
+      "children": [
+        "/_authentication/login",
+        "/_authentication/register"
+      ]
+    },
     "/_authentication/login": {
-      "filePath": "_authentication/login.tsx"
+      "filePath": "_authentication/login.tsx",
+      "parent": "/_authentication"
+    },
+    "/_authentication/register": {
+      "filePath": "_authentication/register",
+      "parent": "/_authentication",
+      "children": [
+        "/_authentication/register/_steps"
+      ]
+    },
+    "/_authentication/register/_steps": {
+      "filePath": "_authentication/register/_steps.tsx",
+      "parent": "/_authentication/register",
+      "children": [
+        "/_authentication/register/_steps/step2",
+        "/_authentication/register/_steps/step3",
+        "/_authentication/register/_steps/step4",
+        "/_authentication/register/_steps/step5",
+        "/_authentication/register/_steps/"
+      ]
     },
     "/_app/(home)/": {
       "filePath": "_app/(home)/index.tsx",
@@ -216,6 +472,26 @@ export const routeTree = rootRoute
     "/_app/search/": {
       "filePath": "_app/search/index.tsx",
       "parent": "/_app"
+    },
+    "/_authentication/register/_steps/step2": {
+      "filePath": "_authentication/register/_steps/step2.tsx",
+      "parent": "/_authentication/register/_steps"
+    },
+    "/_authentication/register/_steps/step3": {
+      "filePath": "_authentication/register/_steps/step3.tsx",
+      "parent": "/_authentication/register/_steps"
+    },
+    "/_authentication/register/_steps/step4": {
+      "filePath": "_authentication/register/_steps/step4.tsx",
+      "parent": "/_authentication/register/_steps"
+    },
+    "/_authentication/register/_steps/step5": {
+      "filePath": "_authentication/register/_steps/step5.tsx",
+      "parent": "/_authentication/register/_steps"
+    },
+    "/_authentication/register/_steps/": {
+      "filePath": "_authentication/register/_steps/index.tsx",
+      "parent": "/_authentication/register/_steps"
     }
   }
 }
