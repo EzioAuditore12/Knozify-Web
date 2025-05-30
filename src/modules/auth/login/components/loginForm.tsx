@@ -9,7 +9,7 @@ import { loginUserObject } from '../types/userLoginType'
 //Form Hook
 import { useAppForm } from '@/hooks/useFormHook'
 
-
+import { useNavigate } from '@tanstack/react-router'
 
 type LoginFormProps = {
   className:string
@@ -33,9 +33,14 @@ const LoginForm = (
      await onSubmit({ username: value.username, password: value.password })
     }
   })
+
+         
+      const navigate=useNavigate()
+
   return (
     <div className={cn('flex flex-col gap-y-3 justify-center lg:h-full lg:justify-around mt-3 items-center pb-4',className)}>
-       
+
+
        {/* Login Header */}
        <div className='flex flex-col w-full justify-center items-center gap-y-1'>
          <Text
@@ -107,6 +112,12 @@ const LoginForm = (
            <Button>
               F
            </Button>
+      <p className='text-blue-500 flex-end cursor-pointer'
+      onClick={()=>{
+        navigate({to:'/register'})
+      }}
+      >Or register here</p>
+
         </div>
           
 

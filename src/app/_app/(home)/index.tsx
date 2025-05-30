@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button, Text } from '@/components/ui'
-import { themeStore } from '@/store/theme'
+import { authStore,themeStore } from '@/store'
 import { FiSun, FiMoon } from 'react-icons/fi'
 
 export const Route = createFileRoute('/_app/(home)/')({
@@ -9,6 +9,8 @@ export const Route = createFileRoute('/_app/(home)/')({
 
 function RouteComponent() {
   const { theme, setTheme } = themeStore()
+  const {logoutUser}=authStore()
+  const navigate=useNavigate()
   
   const toggleTheme = () => {
     if (theme === 'light') {
@@ -55,6 +57,15 @@ function RouteComponent() {
             Switch to Light Mode
           </>
         )}
+      </Button>
+
+      <Button
+      onClick={()=>{
+        logoutUser()
+        navigate({to:"/login",replace:true})
+      }}
+      >
+        Logout
       </Button>
     </div>
   )

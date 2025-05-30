@@ -1,5 +1,4 @@
-import { createFileRoute,redirect,  useNavigate} from '@tanstack/react-router'
-import { authStore } from '@/store'
+import { createFileRoute, useNavigate} from '@tanstack/react-router'
 import { useState } from 'react'
 
 //hook
@@ -10,15 +9,8 @@ import LoginHeader from '@/modules/auth/login/components/loginHeader'
 import LoginForm from '@/modules/auth/login/components/loginForm'
 
 
+//Need to improve the login UI
 export const Route = createFileRoute('/_authentication/login')({
-  beforeLoad:()=>{
-    const user=authStore.getState().user
-    if(user){
-        throw redirect({
-            to:'/'
-        })
-    }
-},
   component: RouteComponent,
 })
 
@@ -36,7 +28,7 @@ function RouteComponent() {
     }
   }
   
-  {/*TODO Need to fix this login page responsiveness accross all deviices */}
+  {/*TODO Need to fix this login page responsiveness accross all devices and styling */}
   return (
     
      <div className='max-h-dvh p-3 dark:bg-gray-900 flex flex-col gap-y-4 grow-1 lg:flex-row lg:gap-x-2'>
