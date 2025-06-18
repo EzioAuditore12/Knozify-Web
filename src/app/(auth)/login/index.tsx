@@ -1,5 +1,9 @@
-import { LoginForm } from "@/modules/auth/login/components/loginForm";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { LoginForm,AuthLogin,LoginBanner } from "@/modules/auth/login/components";
+import { Card, CardContent, Muted } from "@/components/ui";
+import { Stack } from "@/components/ui/layout/stack";
+
 export const Route = createFileRoute("/(auth)/login/")({
 	component: RouteComponent,
 });
@@ -7,7 +11,27 @@ export const Route = createFileRoute("/(auth)/login/")({
 function RouteComponent() {
 	return (
 		<div className="flex justify-center items-center p-2 w-full">
-			<LoginForm className="w-full max-w-[700px]" />
+			<Card className="overflow-hidden p-0 w-full max-w-4xl">
+						<CardContent className="grid p-0 md:grid-cols-2">
+							{/*-----Login Title ------*/}
+							<Stack className="p-6 md:p-8 " spacing={"md"}>
+								<LoginForm />
+			
+								<Muted className="text-center">Or Continue With</Muted>
+								
+								<AuthLogin />
+			
+								<div className="text-center text-sm">
+									Don't have an account?{" "}
+									<a href="#" className="underline underline-offset-4">
+										Sign up
+									</a>
+								</div>
+							</Stack>
+			
+							<LoginBanner />
+						</CardContent>
+					</Card>
 		</div>
 	);
 }

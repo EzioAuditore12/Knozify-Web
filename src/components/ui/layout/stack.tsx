@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { type VariantProps, cva } from "class-variance-authority";
+import { type ComponentProps } from "react";
 
 const stackStyles = cva("flex", {
 	variants: {
@@ -53,42 +54,27 @@ const stackStyles = cva("flex", {
 	defaultVariants: {
 		direction: "vertical",
 		spacing: "none",
-		verticalSpacing: "none",
-		horizontalSpacing: "none",
-		align: "stretch",
-		justify: "start",
 		wrap: false,
 	},
 });
 
-type StackProps = React.HTMLAttributes<HTMLDivElement> &
-	VariantProps<typeof stackStyles> & {
-		className?: string;
-		ref?: React.Ref<HTMLDivElement>;
-	};
-
+type StackProps = ComponentProps<"div"> & VariantProps<typeof stackStyles>;
 function Stack({
 	className,
 	direction,
 	spacing,
-	verticalSpacing,
-	horizontalSpacing,
 	align,
 	justify,
 	wrap,
 	children,
-	ref,
 	...props
 }: StackProps) {
 	return (
 		<div
-			ref={ref}
 			className={cn(
 				stackStyles({
 					direction,
 					spacing,
-					verticalSpacing,
-					horizontalSpacing,
 					align,
 					justify,
 					wrap,

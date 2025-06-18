@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { type VariantProps, cva } from "class-variance-authority";
 
-const containerStyles = cva("flex-1", {
+const containerStyles = cva("flex flex-1", {
 	variants: {
 		centered: {
 			true: "justify-center items-center",
