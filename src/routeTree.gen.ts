@@ -8,280 +8,354 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as appLayoutRouteImport } from "./app/(app)/_layout";
+import { Route as appExploreRouteImport } from "./app/(app)/explore";
+import { Route as appIndexRouteImport } from "./app/(app)/index";
+import { Route as authLayoutRouteImport } from "./app/(auth)/_layout";
+import { Route as authLoginLayoutRouteImport } from "./app/(auth)/login/_layout";
+import { Route as authLoginForgotPasswordRouteImport } from "./app/(auth)/login/forgot-password";
+import { Route as authLoginIndexRouteImport } from "./app/(auth)/login/index";
+import { Route as authLoginResetPasswordRouteImport } from "./app/(auth)/login/reset-password";
+import { Route as authRegisterLayoutRouteImport } from "./app/(auth)/register/_layout";
+import { Route as authRegisterIndexRouteImport } from "./app/(auth)/register/index";
+import { Route as authRegisterStep2RouteImport } from "./app/(auth)/register/step2";
+import { Route as authRegisterStep3RouteImport } from "./app/(auth)/register/step3";
+import { Route as authRegisterStep4RouteImport } from "./app/(auth)/register/step4";
+import { Route as authRegisterStep5RouteImport } from "./app/(auth)/register/step5";
+import { Route as rootRouteImport } from "./app/__root";
 
-import { Route as rootRoute } from './app/__root'
-import { Route as AuthImport } from './app/_auth'
-import { Route as AppImport } from './app/_app'
-import { Route as AuthRegisterImport } from './app/_auth/register'
-import { Route as AuthLoginImport } from './app/_auth/login'
-import { Route as AppSearchIndexImport } from './app/_app/search/index'
-import { Route as AppReelsIndexImport } from './app/_app/reels/index'
-import { Route as AppProfileIndexImport } from './app/_app/profile/index'
-import { Route as ApphomeIndexImport } from './app/_app/(home)/index'
-
-// Create/Update Routes
-
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AppRoute = AppImport.update({
-  id: '/_app',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRegisterRoute = AuthRegisterImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => AuthRoute,
-} as any)
-
-const AuthLoginRoute = AuthLoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => AuthRoute,
-} as any)
-
-const AppSearchIndexRoute = AppSearchIndexImport.update({
-  id: '/search/',
-  path: '/search/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppReelsIndexRoute = AppReelsIndexImport.update({
-  id: '/reels/',
-  path: '/reels/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppProfileIndexRoute = AppProfileIndexImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const ApphomeIndexRoute = ApphomeIndexImport.update({
-  id: '/(home)/',
-  path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AppImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/login': {
-      id: '/_auth/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/register': {
-      id: '/_auth/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof AuthRegisterImport
-      parentRoute: typeof AuthImport
-    }
-    '/_app/(home)/': {
-      id: '/_app/(home)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof ApphomeIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/profile/': {
-      id: '/_app/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AppProfileIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/reels/': {
-      id: '/_app/reels/'
-      path: '/reels'
-      fullPath: '/reels'
-      preLoaderRoute: typeof AppReelsIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/search/': {
-      id: '/_app/search/'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof AppSearchIndexImport
-      parentRoute: typeof AppImport
-    }
-  }
-}
-
-// Create and export the route tree
-
-interface AppRouteChildren {
-  ApphomeIndexRoute: typeof ApphomeIndexRoute
-  AppProfileIndexRoute: typeof AppProfileIndexRoute
-  AppReelsIndexRoute: typeof AppReelsIndexRoute
-  AppSearchIndexRoute: typeof AppSearchIndexRoute
-}
-
-const AppRouteChildren: AppRouteChildren = {
-  ApphomeIndexRoute: ApphomeIndexRoute,
-  AppProfileIndexRoute: AppProfileIndexRoute,
-  AppReelsIndexRoute: AppReelsIndexRoute,
-  AppSearchIndexRoute: AppSearchIndexRoute,
-}
-
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
-
-interface AuthRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+const authLayoutRoute = authLayoutRouteImport.update({
+	id: "/(auth)",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const appLayoutRoute = appLayoutRouteImport.update({
+	id: "/(app)",
+	getParentRoute: () => rootRouteImport,
+} as any);
+const appIndexRoute = appIndexRouteImport.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => appLayoutRoute,
+} as any);
+const appExploreRoute = appExploreRouteImport.update({
+	id: "/explore",
+	path: "/explore",
+	getParentRoute: () => appLayoutRoute,
+} as any);
+const authRegisterLayoutRoute = authRegisterLayoutRouteImport.update({
+	id: "/register",
+	path: "/register",
+	getParentRoute: () => authLayoutRoute,
+} as any);
+const authLoginLayoutRoute = authLoginLayoutRouteImport.update({
+	id: "/login",
+	path: "/login",
+	getParentRoute: () => authLayoutRoute,
+} as any);
+const authRegisterIndexRoute = authRegisterIndexRouteImport.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => authRegisterLayoutRoute,
+} as any);
+const authLoginIndexRoute = authLoginIndexRouteImport.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => authLoginLayoutRoute,
+} as any);
+const authRegisterStep5Route = authRegisterStep5RouteImport.update({
+	id: "/step5",
+	path: "/step5",
+	getParentRoute: () => authRegisterLayoutRoute,
+} as any);
+const authRegisterStep4Route = authRegisterStep4RouteImport.update({
+	id: "/step4",
+	path: "/step4",
+	getParentRoute: () => authRegisterLayoutRoute,
+} as any);
+const authRegisterStep3Route = authRegisterStep3RouteImport.update({
+	id: "/step3",
+	path: "/step3",
+	getParentRoute: () => authRegisterLayoutRoute,
+} as any);
+const authRegisterStep2Route = authRegisterStep2RouteImport.update({
+	id: "/step2",
+	path: "/step2",
+	getParentRoute: () => authRegisterLayoutRoute,
+} as any);
+const authLoginResetPasswordRoute = authLoginResetPasswordRouteImport.update({
+	id: "/reset-password",
+	path: "/reset-password",
+	getParentRoute: () => authLoginLayoutRoute,
+} as any);
+const authLoginForgotPasswordRoute = authLoginForgotPasswordRouteImport.update({
+	id: "/forgot-password",
+	path: "/forgot-password",
+	getParentRoute: () => authLoginLayoutRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '': typeof AuthRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/register': typeof AuthRegisterRoute
-  '/': typeof ApphomeIndexRoute
-  '/profile': typeof AppProfileIndexRoute
-  '/reels': typeof AppReelsIndexRoute
-  '/search': typeof AppSearchIndexRoute
+	"/": typeof appIndexRoute;
+	"/login": typeof authLoginLayoutRouteWithChildren;
+	"/register": typeof authRegisterLayoutRouteWithChildren;
+	"/explore": typeof appExploreRoute;
+	"/login/forgot-password": typeof authLoginForgotPasswordRoute;
+	"/login/reset-password": typeof authLoginResetPasswordRoute;
+	"/register/step2": typeof authRegisterStep2Route;
+	"/register/step3": typeof authRegisterStep3Route;
+	"/register/step4": typeof authRegisterStep4Route;
+	"/register/step5": typeof authRegisterStep5Route;
+	"/login/": typeof authLoginIndexRoute;
+	"/register/": typeof authRegisterIndexRoute;
 }
-
 export interface FileRoutesByTo {
-  '': typeof AuthRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/register': typeof AuthRegisterRoute
-  '/': typeof ApphomeIndexRoute
-  '/profile': typeof AppProfileIndexRoute
-  '/reels': typeof AppReelsIndexRoute
-  '/search': typeof AppSearchIndexRoute
+	"/": typeof appIndexRoute;
+	"/explore": typeof appExploreRoute;
+	"/login/forgot-password": typeof authLoginForgotPasswordRoute;
+	"/login/reset-password": typeof authLoginResetPasswordRoute;
+	"/register/step2": typeof authRegisterStep2Route;
+	"/register/step3": typeof authRegisterStep3Route;
+	"/register/step4": typeof authRegisterStep4Route;
+	"/register/step5": typeof authRegisterStep5Route;
+	"/login": typeof authLoginIndexRoute;
+	"/register": typeof authRegisterIndexRoute;
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_app': typeof AppRouteWithChildren
-  '/_auth': typeof AuthRouteWithChildren
-  '/_auth/login': typeof AuthLoginRoute
-  '/_auth/register': typeof AuthRegisterRoute
-  '/_app/(home)/': typeof ApphomeIndexRoute
-  '/_app/profile/': typeof AppProfileIndexRoute
-  '/_app/reels/': typeof AppReelsIndexRoute
-  '/_app/search/': typeof AppSearchIndexRoute
+	__root__: typeof rootRouteImport;
+	"/(app)": typeof appLayoutRouteWithChildren;
+	"/(auth)": typeof authLayoutRouteWithChildren;
+	"/(auth)/login": typeof authLoginLayoutRouteWithChildren;
+	"/(auth)/register": typeof authRegisterLayoutRouteWithChildren;
+	"/(app)/explore": typeof appExploreRoute;
+	"/(app)/": typeof appIndexRoute;
+	"/(auth)/login/forgot-password": typeof authLoginForgotPasswordRoute;
+	"/(auth)/login/reset-password": typeof authLoginResetPasswordRoute;
+	"/(auth)/register/step2": typeof authRegisterStep2Route;
+	"/(auth)/register/step3": typeof authRegisterStep3Route;
+	"/(auth)/register/step4": typeof authRegisterStep4Route;
+	"/(auth)/register/step5": typeof authRegisterStep5Route;
+	"/(auth)/login/": typeof authLoginIndexRoute;
+	"/(auth)/register/": typeof authRegisterIndexRoute;
 }
-
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/login'
-    | '/register'
-    | '/'
-    | '/profile'
-    | '/reels'
-    | '/search'
-  fileRoutesByTo: FileRoutesByTo
-  to: '' | '/login' | '/register' | '/' | '/profile' | '/reels' | '/search'
-  id:
-    | '__root__'
-    | '/_app'
-    | '/_auth'
-    | '/_auth/login'
-    | '/_auth/register'
-    | '/_app/(home)/'
-    | '/_app/profile/'
-    | '/_app/reels/'
-    | '/_app/search/'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| "/"
+		| "/login"
+		| "/register"
+		| "/explore"
+		| "/login/forgot-password"
+		| "/login/reset-password"
+		| "/register/step2"
+		| "/register/step3"
+		| "/register/step4"
+		| "/register/step5"
+		| "/login/"
+		| "/register/";
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| "/"
+		| "/explore"
+		| "/login/forgot-password"
+		| "/login/reset-password"
+		| "/register/step2"
+		| "/register/step3"
+		| "/register/step4"
+		| "/register/step5"
+		| "/login"
+		| "/register";
+	id:
+		| "__root__"
+		| "/(app)"
+		| "/(auth)"
+		| "/(auth)/login"
+		| "/(auth)/register"
+		| "/(app)/explore"
+		| "/(app)/"
+		| "/(auth)/login/forgot-password"
+		| "/(auth)/login/reset-password"
+		| "/(auth)/register/step2"
+		| "/(auth)/register/step3"
+		| "/(auth)/register/step4"
+		| "/(auth)/register/step5"
+		| "/(auth)/login/"
+		| "/(auth)/register/";
+	fileRoutesById: FileRoutesById;
+}
+export interface RootRouteChildren {
+	appLayoutRoute: typeof appLayoutRouteWithChildren;
+	authLayoutRoute: typeof authLayoutRouteWithChildren;
 }
 
-export interface RootRouteChildren {
-  AppRoute: typeof AppRouteWithChildren
-  AuthRoute: typeof AuthRouteWithChildren
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/(auth)": {
+			id: "/(auth)";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof authLayoutRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/(app)": {
+			id: "/(app)";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof appLayoutRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/(app)/": {
+			id: "/(app)/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof appIndexRouteImport;
+			parentRoute: typeof appLayoutRoute;
+		};
+		"/(app)/explore": {
+			id: "/(app)/explore";
+			path: "/explore";
+			fullPath: "/explore";
+			preLoaderRoute: typeof appExploreRouteImport;
+			parentRoute: typeof appLayoutRoute;
+		};
+		"/(auth)/register": {
+			id: "/(auth)/register";
+			path: "/register";
+			fullPath: "/register";
+			preLoaderRoute: typeof authRegisterLayoutRouteImport;
+			parentRoute: typeof authLayoutRoute;
+		};
+		"/(auth)/login": {
+			id: "/(auth)/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof authLoginLayoutRouteImport;
+			parentRoute: typeof authLayoutRoute;
+		};
+		"/(auth)/register/": {
+			id: "/(auth)/register/";
+			path: "/";
+			fullPath: "/register/";
+			preLoaderRoute: typeof authRegisterIndexRouteImport;
+			parentRoute: typeof authRegisterLayoutRoute;
+		};
+		"/(auth)/login/": {
+			id: "/(auth)/login/";
+			path: "/";
+			fullPath: "/login/";
+			preLoaderRoute: typeof authLoginIndexRouteImport;
+			parentRoute: typeof authLoginLayoutRoute;
+		};
+		"/(auth)/register/step5": {
+			id: "/(auth)/register/step5";
+			path: "/step5";
+			fullPath: "/register/step5";
+			preLoaderRoute: typeof authRegisterStep5RouteImport;
+			parentRoute: typeof authRegisterLayoutRoute;
+		};
+		"/(auth)/register/step4": {
+			id: "/(auth)/register/step4";
+			path: "/step4";
+			fullPath: "/register/step4";
+			preLoaderRoute: typeof authRegisterStep4RouteImport;
+			parentRoute: typeof authRegisterLayoutRoute;
+		};
+		"/(auth)/register/step3": {
+			id: "/(auth)/register/step3";
+			path: "/step3";
+			fullPath: "/register/step3";
+			preLoaderRoute: typeof authRegisterStep3RouteImport;
+			parentRoute: typeof authRegisterLayoutRoute;
+		};
+		"/(auth)/register/step2": {
+			id: "/(auth)/register/step2";
+			path: "/step2";
+			fullPath: "/register/step2";
+			preLoaderRoute: typeof authRegisterStep2RouteImport;
+			parentRoute: typeof authRegisterLayoutRoute;
+		};
+		"/(auth)/login/reset-password": {
+			id: "/(auth)/login/reset-password";
+			path: "/reset-password";
+			fullPath: "/login/reset-password";
+			preLoaderRoute: typeof authLoginResetPasswordRouteImport;
+			parentRoute: typeof authLoginLayoutRoute;
+		};
+		"/(auth)/login/forgot-password": {
+			id: "/(auth)/login/forgot-password";
+			path: "/forgot-password";
+			fullPath: "/login/forgot-password";
+			preLoaderRoute: typeof authLoginForgotPasswordRouteImport;
+			parentRoute: typeof authLoginLayoutRoute;
+		};
+	}
 }
+
+interface appLayoutRouteChildren {
+	appExploreRoute: typeof appExploreRoute;
+	appIndexRoute: typeof appIndexRoute;
+}
+
+const appLayoutRouteChildren: appLayoutRouteChildren = {
+	appExploreRoute: appExploreRoute,
+	appIndexRoute: appIndexRoute,
+};
+
+const appLayoutRouteWithChildren = appLayoutRoute._addFileChildren(
+	appLayoutRouteChildren,
+);
+
+interface authLoginLayoutRouteChildren {
+	authLoginForgotPasswordRoute: typeof authLoginForgotPasswordRoute;
+	authLoginResetPasswordRoute: typeof authLoginResetPasswordRoute;
+	authLoginIndexRoute: typeof authLoginIndexRoute;
+}
+
+const authLoginLayoutRouteChildren: authLoginLayoutRouteChildren = {
+	authLoginForgotPasswordRoute: authLoginForgotPasswordRoute,
+	authLoginResetPasswordRoute: authLoginResetPasswordRoute,
+	authLoginIndexRoute: authLoginIndexRoute,
+};
+
+const authLoginLayoutRouteWithChildren = authLoginLayoutRoute._addFileChildren(
+	authLoginLayoutRouteChildren,
+);
+
+interface authRegisterLayoutRouteChildren {
+	authRegisterStep2Route: typeof authRegisterStep2Route;
+	authRegisterStep3Route: typeof authRegisterStep3Route;
+	authRegisterStep4Route: typeof authRegisterStep4Route;
+	authRegisterStep5Route: typeof authRegisterStep5Route;
+	authRegisterIndexRoute: typeof authRegisterIndexRoute;
+}
+
+const authRegisterLayoutRouteChildren: authRegisterLayoutRouteChildren = {
+	authRegisterStep2Route: authRegisterStep2Route,
+	authRegisterStep3Route: authRegisterStep3Route,
+	authRegisterStep4Route: authRegisterStep4Route,
+	authRegisterStep5Route: authRegisterStep5Route,
+	authRegisterIndexRoute: authRegisterIndexRoute,
+};
+
+const authRegisterLayoutRouteWithChildren =
+	authRegisterLayoutRoute._addFileChildren(authRegisterLayoutRouteChildren);
+
+interface authLayoutRouteChildren {
+	authLoginLayoutRoute: typeof authLoginLayoutRouteWithChildren;
+	authRegisterLayoutRoute: typeof authRegisterLayoutRouteWithChildren;
+}
+
+const authLayoutRouteChildren: authLayoutRouteChildren = {
+	authLoginLayoutRoute: authLoginLayoutRouteWithChildren,
+	authRegisterLayoutRoute: authRegisterLayoutRouteWithChildren,
+};
+
+const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
+	authLayoutRouteChildren,
+);
 
 const rootRouteChildren: RootRouteChildren = {
-  AppRoute: AppRouteWithChildren,
-  AuthRoute: AuthRouteWithChildren,
-}
-
-export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_app",
-        "/_auth"
-      ]
-    },
-    "/_app": {
-      "filePath": "_app.tsx",
-      "children": [
-        "/_app/(home)/",
-        "/_app/profile/",
-        "/_app/reels/",
-        "/_app/search/"
-      ]
-    },
-    "/_auth": {
-      "filePath": "_auth.tsx",
-      "children": [
-        "/_auth/login",
-        "/_auth/register"
-      ]
-    },
-    "/_auth/login": {
-      "filePath": "_auth/login.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/register": {
-      "filePath": "_auth/register.tsx",
-      "parent": "/_auth"
-    },
-    "/_app/(home)/": {
-      "filePath": "_app/(home)/index.tsx",
-      "parent": "/_app"
-    },
-    "/_app/profile/": {
-      "filePath": "_app/profile/index.tsx",
-      "parent": "/_app"
-    },
-    "/_app/reels/": {
-      "filePath": "_app/reels/index.tsx",
-      "parent": "/_app"
-    },
-    "/_app/search/": {
-      "filePath": "_app/search/index.tsx",
-      "parent": "/_app"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
+	appLayoutRoute: appLayoutRouteWithChildren,
+	authLayoutRoute: authLayoutRouteWithChildren,
+};
+export const routeTree = rootRouteImport
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();

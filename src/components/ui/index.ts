@@ -51,3 +51,33 @@ export type {
 	TooltipContentProps,
 	TooltipProviderProps,
 } from "./tooltip";
+
+// Typography
+export {
+	BlockQuote,
+	Code,
+	H1,
+	H2,
+	H3,
+	H4,
+	Large,
+	Lead,
+	Muted,
+	P,
+	Small,
+} from "./typography";
+export type {
+	H1Props,
+	H2Props,
+	H3Props,
+	H4Props,
+	PProps,
+	BlockQuoteProps,
+	CodeProps,
+	LeadProps,
+	LargeProps,
+	SmallProps,
+	MutedProps,
+} from "./typography";
+
+export { Label, type LabelProps } from "./label";

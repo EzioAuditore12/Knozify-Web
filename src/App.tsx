@@ -7,6 +7,9 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
+//Theme Provider
+import { ThemeProvider } from "@/providers/theme-provider";
+
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
@@ -44,5 +47,9 @@ declare module "@tanstack/react-router" {
 
 //Theme wrapper
 export default function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+			<RouterProvider router={router} />
+		</ThemeProvider>
+	);
 }
