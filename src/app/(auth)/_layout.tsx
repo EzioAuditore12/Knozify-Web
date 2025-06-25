@@ -5,9 +5,5 @@ export const Route = createFileRoute("/(auth)")({
 });
 
 function RouteComponent() {
-	return (
-		<div className="min-h-svh flex flex-col">
-			<Outlet />
-		</div>
-	);
+	return <Outlet />;
 }

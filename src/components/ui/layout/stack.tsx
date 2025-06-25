@@ -53,7 +53,6 @@ const stackStyles = cva("flex", {
 	},
 	defaultVariants: {
 		direction: "vertical",
-		spacing: "none",
 		wrap: false,
 	},
 });
@@ -63,6 +62,8 @@ function Stack({
 	className,
 	direction,
 	spacing,
+	verticalSpacing,
+	horizontalSpacing,
 	align,
 	justify,
 	wrap,
@@ -75,6 +76,8 @@ function Stack({
 				stackStyles({
 					direction,
 					spacing,
+					verticalSpacing,
+					horizontalSpacing,
 					align,
 					justify,
 					wrap,

@@ -5,9 +5,5 @@ export const Route = createFileRoute("/(auth)/register")({
 });
 
 function RouteComponent() {
-	return (
-		<div className="flex flex-1">
-			<Outlet />
-		</div>
-	);
+	return <Outlet />;
 }

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import {
 	AtSignIcon,
 	LockIcon,
@@ -20,37 +20,11 @@ import {
 } from "@/modules/auth/registeration/components/steps";
 import { useMultiStepForm } from "@/modules/auth/registeration/hooks/useMultiStepForm";
 
-// Create the route for the registration page
-export const Route = createFileRoute("/(auth)/register/")({
+export const Route = createLazyFileRoute("/(auth)/register/")({
 	component: RouteComponent,
 });
 
-/**
- * Main Registration Screen Component.
- *
- * This is the primary registration page that orchestrates the entire multi-step
- * registration process. It provides a cohesive user experience with a visual
- * step indicator and seamless navigation between registration steps.
- *
- * Features:
- * - Multi-step registration flow with 5 distinct steps
- * - Visual step indicator with progress tracking
- * - Persistent form state across steps
- * - Responsive design with card-based layout
- * - Integration with TanStack Router for routing
- * - Comprehensive form validation
- *
- * Architecture:
- * - Uses `useMultiStepForm` hook for step management
- * - Integrates with Zustand store for state persistence
- * - Implements factory pattern for step navigation
- * - Provides visual feedback through step indicator
- *
- * @example
- * The component is automatically rendered when navigating to "/register"
- */
 function RouteComponent() {
-	// Define labels for each step in the registration process
 	const stepLabels = [
 		"Phone Number",
 		"OTP Verification",
@@ -59,19 +33,14 @@ function RouteComponent() {
 		"Password",
 	];
 
-	// Define icons for each step to enhance visual communication
 	const stepIcons = [
-		PhoneIcon, // Step 1: Phone number input
-		MessageSquareIcon, // Step 2: OTP verification
-		UserIcon, // Step 3: Personal details
-		AtSignIcon, // Step 4: Username selection
-		LockIcon, // Step 5: Password creation
+		PhoneIcon,
+		MessageSquareIcon,
+		UserIcon,
+		AtSignIcon,
+		LockIcon,
 	];
 
-	/**
-	 * Handles the final submission of the registration form.
-	 * This is called when the user completes the password step.
-	 */
 	const handleFinalSubmit = () => {
 		console.log("Registration completed!");
 		// Handle final form submission here

@@ -8,6 +8,8 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './app/__root'
 import { Route as authLayoutRouteImport } from './app/(auth)/_layout'
 import { Route as appLayoutRouteImport } from './app/(app)/_layout'
@@ -16,13 +18,14 @@ import { Route as appExploreRouteImport } from './app/(app)/explore'
 import { Route as authRegisterLayoutRouteImport } from './app/(auth)/register/_layout'
 import { Route as authLoginLayoutRouteImport } from './app/(auth)/login/_layout'
 import { Route as authRegisterIndexRouteImport } from './app/(auth)/register/index'
-import { Route as authLoginIndexRouteImport } from './app/(auth)/login/index'
-import { Route as authRegisterStep5RouteImport } from './app/(auth)/register/step5'
-import { Route as authRegisterStep4RouteImport } from './app/(auth)/register/step4'
-import { Route as authRegisterStep3RouteImport } from './app/(auth)/register/step3'
-import { Route as authRegisterStep2RouteImport } from './app/(auth)/register/step2'
-import { Route as authLoginResetPasswordRouteImport } from './app/(auth)/login/reset-password'
-import { Route as authLoginForgotPasswordRouteImport } from './app/(auth)/login/forgot-password'
+
+const authLoginIndexLazyRouteImport = createFileRoute('/(auth)/login/')()
+const authLoginResetPasswordLazyRouteImport = createFileRoute(
+  '/(auth)/login/reset-password',
+)()
+const authLoginForgotPasswordLazyRouteImport = createFileRoute(
+  '/(auth)/login/forgot-password',
+)()
 
 const authLayoutRoute = authLayoutRouteImport.update({
   id: '/(auth)',
@@ -52,72 +55,56 @@ const authLoginLayoutRoute = authLoginLayoutRouteImport.update({
   path: '/login',
   getParentRoute: () => authLayoutRoute,
 } as any)
-const authRegisterIndexRoute = authRegisterIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => authRegisterLayoutRoute,
-} as any)
-const authLoginIndexRoute = authLoginIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => authLoginLayoutRoute,
-} as any)
-const authRegisterStep5Route = authRegisterStep5RouteImport.update({
-  id: '/step5',
-  path: '/step5',
-  getParentRoute: () => authRegisterLayoutRoute,
-} as any)
-const authRegisterStep4Route = authRegisterStep4RouteImport.update({
-  id: '/step4',
-  path: '/step4',
-  getParentRoute: () => authRegisterLayoutRoute,
-} as any)
-const authRegisterStep3Route = authRegisterStep3RouteImport.update({
-  id: '/step3',
-  path: '/step3',
-  getParentRoute: () => authRegisterLayoutRoute,
-} as any)
-const authRegisterStep2Route = authRegisterStep2RouteImport.update({
-  id: '/step2',
-  path: '/step2',
-  getParentRoute: () => authRegisterLayoutRoute,
-} as any)
-const authLoginResetPasswordRoute = authLoginResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => authLoginLayoutRoute,
-} as any)
-const authLoginForgotPasswordRoute = authLoginForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => authLoginLayoutRoute,
-} as any)
+const authLoginIndexLazyRoute = authLoginIndexLazyRouteImport
+  .update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => authLoginLayoutRoute,
+  } as any)
+  .lazy(() => import('./app/(auth)/login/index.lazy').then((d) => d.Route))
+const authRegisterIndexRoute = authRegisterIndexRouteImport
+  .update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => authRegisterLayoutRoute,
+  } as any)
+  .lazy(() => import('./app/(auth)/register/index.lazy').then((d) => d.Route))
+const authLoginResetPasswordLazyRoute = authLoginResetPasswordLazyRouteImport
+  .update({
+    id: '/reset-password',
+    path: '/reset-password',
+    getParentRoute: () => authLoginLayoutRoute,
+  } as any)
+  .lazy(() =>
+    import('./app/(auth)/login/reset-password.lazy').then((d) => d.Route),
+  )
+const authLoginForgotPasswordLazyRoute = authLoginForgotPasswordLazyRouteImport
+  .update({
+    id: '/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => authLoginLayoutRoute,
+  } as any)
+  .lazy(() =>
+    import('./app/(auth)/login/forgot-password.lazy').then((d) => d.Route),
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
   '/login': typeof authLoginLayoutRouteWithChildren
   '/register': typeof authRegisterLayoutRouteWithChildren
   '/explore': typeof appExploreRoute
-  '/login/forgot-password': typeof authLoginForgotPasswordRoute
-  '/login/reset-password': typeof authLoginResetPasswordRoute
-  '/register/step2': typeof authRegisterStep2Route
-  '/register/step3': typeof authRegisterStep3Route
-  '/register/step4': typeof authRegisterStep4Route
-  '/register/step5': typeof authRegisterStep5Route
-  '/login/': typeof authLoginIndexRoute
+  '/login/forgot-password': typeof authLoginForgotPasswordLazyRoute
+  '/login/reset-password': typeof authLoginResetPasswordLazyRoute
   '/register/': typeof authRegisterIndexRoute
+  '/login/': typeof authLoginIndexLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof appIndexRoute
   '/explore': typeof appExploreRoute
-  '/login/forgot-password': typeof authLoginForgotPasswordRoute
-  '/login/reset-password': typeof authLoginResetPasswordRoute
-  '/register/step2': typeof authRegisterStep2Route
-  '/register/step3': typeof authRegisterStep3Route
-  '/register/step4': typeof authRegisterStep4Route
-  '/register/step5': typeof authRegisterStep5Route
-  '/login': typeof authLoginIndexRoute
+  '/login/forgot-password': typeof authLoginForgotPasswordLazyRoute
+  '/login/reset-password': typeof authLoginResetPasswordLazyRoute
   '/register': typeof authRegisterIndexRoute
+  '/login': typeof authLoginIndexLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -127,14 +114,10 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterLayoutRouteWithChildren
   '/(app)/explore': typeof appExploreRoute
   '/(app)/': typeof appIndexRoute
-  '/(auth)/login/forgot-password': typeof authLoginForgotPasswordRoute
-  '/(auth)/login/reset-password': typeof authLoginResetPasswordRoute
-  '/(auth)/register/step2': typeof authRegisterStep2Route
-  '/(auth)/register/step3': typeof authRegisterStep3Route
-  '/(auth)/register/step4': typeof authRegisterStep4Route
-  '/(auth)/register/step5': typeof authRegisterStep5Route
-  '/(auth)/login/': typeof authLoginIndexRoute
+  '/(auth)/login/forgot-password': typeof authLoginForgotPasswordLazyRoute
+  '/(auth)/login/reset-password': typeof authLoginResetPasswordLazyRoute
   '/(auth)/register/': typeof authRegisterIndexRoute
+  '/(auth)/login/': typeof authLoginIndexLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -145,24 +128,16 @@ export interface FileRouteTypes {
     | '/explore'
     | '/login/forgot-password'
     | '/login/reset-password'
-    | '/register/step2'
-    | '/register/step3'
-    | '/register/step4'
-    | '/register/step5'
-    | '/login/'
     | '/register/'
+    | '/login/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/explore'
     | '/login/forgot-password'
     | '/login/reset-password'
-    | '/register/step2'
-    | '/register/step3'
-    | '/register/step4'
-    | '/register/step5'
-    | '/login'
     | '/register'
+    | '/login'
   id:
     | '__root__'
     | '/(app)'
@@ -173,12 +148,8 @@ export interface FileRouteTypes {
     | '/(app)/'
     | '/(auth)/login/forgot-password'
     | '/(auth)/login/reset-password'
-    | '/(auth)/register/step2'
-    | '/(auth)/register/step3'
-    | '/(auth)/register/step4'
-    | '/(auth)/register/step5'
-    | '/(auth)/login/'
     | '/(auth)/register/'
+    | '/(auth)/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -230,6 +201,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginLayoutRouteImport
       parentRoute: typeof authLayoutRoute
     }
+    '/(auth)/login/': {
+      id: '/(auth)/login/'
+      path: '/'
+      fullPath: '/login/'
+      preLoaderRoute: typeof authLoginIndexLazyRouteImport
+      parentRoute: typeof authLoginLayoutRoute
+    }
     '/(auth)/register/': {
       id: '/(auth)/register/'
       path: '/'
@@ -237,53 +215,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authRegisterIndexRouteImport
       parentRoute: typeof authRegisterLayoutRoute
     }
-    '/(auth)/login/': {
-      id: '/(auth)/login/'
-      path: '/'
-      fullPath: '/login/'
-      preLoaderRoute: typeof authLoginIndexRouteImport
-      parentRoute: typeof authLoginLayoutRoute
-    }
-    '/(auth)/register/step5': {
-      id: '/(auth)/register/step5'
-      path: '/step5'
-      fullPath: '/register/step5'
-      preLoaderRoute: typeof authRegisterStep5RouteImport
-      parentRoute: typeof authRegisterLayoutRoute
-    }
-    '/(auth)/register/step4': {
-      id: '/(auth)/register/step4'
-      path: '/step4'
-      fullPath: '/register/step4'
-      preLoaderRoute: typeof authRegisterStep4RouteImport
-      parentRoute: typeof authRegisterLayoutRoute
-    }
-    '/(auth)/register/step3': {
-      id: '/(auth)/register/step3'
-      path: '/step3'
-      fullPath: '/register/step3'
-      preLoaderRoute: typeof authRegisterStep3RouteImport
-      parentRoute: typeof authRegisterLayoutRoute
-    }
-    '/(auth)/register/step2': {
-      id: '/(auth)/register/step2'
-      path: '/step2'
-      fullPath: '/register/step2'
-      preLoaderRoute: typeof authRegisterStep2RouteImport
-      parentRoute: typeof authRegisterLayoutRoute
-    }
     '/(auth)/login/reset-password': {
       id: '/(auth)/login/reset-password'
       path: '/reset-password'
       fullPath: '/login/reset-password'
-      preLoaderRoute: typeof authLoginResetPasswordRouteImport
+      preLoaderRoute: typeof authLoginResetPasswordLazyRouteImport
       parentRoute: typeof authLoginLayoutRoute
     }
     '/(auth)/login/forgot-password': {
       id: '/(auth)/login/forgot-password'
       path: '/forgot-password'
       fullPath: '/login/forgot-password'
-      preLoaderRoute: typeof authLoginForgotPasswordRouteImport
+      preLoaderRoute: typeof authLoginForgotPasswordLazyRouteImport
       parentRoute: typeof authLoginLayoutRoute
     }
   }
@@ -304,15 +247,15 @@ const appLayoutRouteWithChildren = appLayoutRoute._addFileChildren(
 )
 
 interface authLoginLayoutRouteChildren {
-  authLoginForgotPasswordRoute: typeof authLoginForgotPasswordRoute
-  authLoginResetPasswordRoute: typeof authLoginResetPasswordRoute
-  authLoginIndexRoute: typeof authLoginIndexRoute
+  authLoginForgotPasswordLazyRoute: typeof authLoginForgotPasswordLazyRoute
+  authLoginResetPasswordLazyRoute: typeof authLoginResetPasswordLazyRoute
+  authLoginIndexLazyRoute: typeof authLoginIndexLazyRoute
 }
 
 const authLoginLayoutRouteChildren: authLoginLayoutRouteChildren = {
-  authLoginForgotPasswordRoute: authLoginForgotPasswordRoute,
-  authLoginResetPasswordRoute: authLoginResetPasswordRoute,
-  authLoginIndexRoute: authLoginIndexRoute,
+  authLoginForgotPasswordLazyRoute: authLoginForgotPasswordLazyRoute,
+  authLoginResetPasswordLazyRoute: authLoginResetPasswordLazyRoute,
+  authLoginIndexLazyRoute: authLoginIndexLazyRoute,
 }
 
 const authLoginLayoutRouteWithChildren = authLoginLayoutRoute._addFileChildren(
@@ -320,18 +263,10 @@ const authLoginLayoutRouteWithChildren = authLoginLayoutRoute._addFileChildren(
 )
 
 interface authRegisterLayoutRouteChildren {
-  authRegisterStep2Route: typeof authRegisterStep2Route
-  authRegisterStep3Route: typeof authRegisterStep3Route
-  authRegisterStep4Route: typeof authRegisterStep4Route
-  authRegisterStep5Route: typeof authRegisterStep5Route
   authRegisterIndexRoute: typeof authRegisterIndexRoute
 }
 
 const authRegisterLayoutRouteChildren: authRegisterLayoutRouteChildren = {
-  authRegisterStep2Route: authRegisterStep2Route,
-  authRegisterStep3Route: authRegisterStep3Route,
-  authRegisterStep4Route: authRegisterStep4Route,
-  authRegisterStep5Route: authRegisterStep5Route,
   authRegisterIndexRoute: authRegisterIndexRoute,
 }
 

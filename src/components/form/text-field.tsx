@@ -1,8 +1,22 @@
 import { useFieldContext } from "@/contexts/tanstackFormContext";
 import { cn } from "@/lib/utils";
-import { Input, type InputProps,Label} from "../ui";
-import { FieldError } from "./fieldError";
+import { Input, type InputProps, Label } from "../ui";
 import { Stack } from "../ui/layout/stack";
+import { FieldError } from "./field-error";
+
+/**
+ * TextField
+ *
+ * A labeled input with built-in error display.
+ *
+ * Props:
+ *   • className: extra class names for the wrapper
+ *   • ...inputProps: all other InputProps passed to the <Input>
+ *
+ * Notes:
+ *   – We wrap <FieldError> in a <div> (not a <P>) to avoid nested <p> tags,
+ *     since FieldError itself renders a <p> and HTML forbids <p> inside <p>.
+ */
 
 export const TextField = ({ className, ...inputProps }: InputProps) => {
 	const field = useFieldContext<string>();
@@ -14,7 +28,6 @@ export const TextField = ({ className, ...inputProps }: InputProps) => {
 				{field.name.charAt(0).toUpperCase() + field.name.slice(1)}
 			</Label>
 			<Input
-				className={cn(className)}
 				id={field.name}
 				value={field.state.value}
 				onChange={(e) => field.handleChange(e.target.value)}

@@ -80,4 +80,23 @@ export type {
 	MutedProps,
 } from "./typography";
 
+//Label
 export { Label, type LabelProps } from "./label";
+
+//Popover
+export {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverAnchor,
+} from "./popover";
+export type {
+	PopoverProps,
+	PopoverTriggerProps,
+	PopoverContentProps,
+	PopoverAnchorProps,
+} from "./popover";
+
+//Calendar
+export { Calendar, CalendarDayButton } from "./calendar";
+export type { CalendarProps, CalendarDayButtonProps } from "./calendar";

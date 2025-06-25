@@ -37,7 +37,7 @@ function RouteComponent() {
 	}
 
 	return (
-		<div className="flex-1 flex flex-col min-h-screen">
+		<div className="flex-1 flex flex-col h-screen">
 			<header className="flex justify-end p-4">
 				<ModeToggle />
 			</header>
@@ -123,7 +123,7 @@ function RouteComponent() {
 			</div>
 			<Button
 				onClick={() => {
-					router.navigate({ to: "/login", replace: true });
+					router.navigate({ to: "/login" });
 				}}
 			>
 				Go to login

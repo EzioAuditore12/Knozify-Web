@@ -1,3 +1,3 @@
-export {LoginForm} from "./loginForm"
-export {AuthLogin} from "./authLogin"
-export {LoginBanner} from "./loginBanner"
+export { LoginForm } from "./loginForm";
+export { AuthLogin } from "./auth-login";
+export { LoginBanner } from "./login-banner";
